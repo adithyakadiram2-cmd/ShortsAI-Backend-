@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ShortsAI V2</title>
+
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 ShortsAI</h1>
+
+<p>Create AI Shorts in one click</p>
+
+<input
+id="topic"
+type="text"
+placeholder="Enter a topic..."
+>
+
+<button onclick="generateScript()">
+Generate
+</button>
+
+<div id="loading" style="display:none;">
+
+<h3 id="status">
+Generating Script...
+</h3>
+
+<div class="progress">
+
+<div
+id="bar"
+class="bar">
+</div>
+
+</div>
+
+</div>
+
+<pre id="output"></pre>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>
+0
+

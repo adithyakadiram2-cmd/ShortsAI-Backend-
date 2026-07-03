@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+requests
+python-dotenv
+edge-tts
+0
+
