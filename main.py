@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from services.script_generator import create_script
 from fastapi.responses import FileResponse
@@ -27,21 +27,23 @@ def health():
 
 
 @app.post("/generate")
-def generate(request: ScriptRequest):
-    script = create_script(request.topic)
+async def generate(request: Request):
+    data = await request.json()
+    topic = data.get("topic", "")
+    script = create_script(topic)
 
     scenes = split_script(script)
     prompts = create_image_prompts(scenes)
     image_paths = generate_images(prompts)
     return {
-    "topic": request.topic,
+    "topic": topic,
     "script": script,
     "scenes": scenes,
     "prompts": prompts,
     "images": image_paths
 }
-
 0
+
 
 
 
