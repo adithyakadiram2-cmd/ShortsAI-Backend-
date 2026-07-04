@@ -1,10 +1,10 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
-from services.script.generator import generate_script
+from services.script_generator import create_script
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from services.scenes.splitter import split_into_scenes
-from services.prompts.generator import generate_prompts
+from services.scene_splitter import split_script
+from services.prompt_generator import create_image_prompts
 from services.image_generator import generate_images
 app = FastAPI(title="ShortsAI Backend V2")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -27,19 +27,21 @@ def health():
 
 
 @app.post("/generate")
-async def generate(request: Request):
-    data = await request.json()
-    topic = data.get("topic", "")
-    script = generate_script(topic)
+def generate(request: ScriptRequest):
+    script = create_script(request.topic)
 
-    scenes = split_into_scenes(script)
-    prompts = generate_prompts(scenes)
+    scenes = split_script(script)
+    prompts = create_image_prompts(scenes)
     image_paths = generate_images(prompts)
-    return repr(script)
+    return {
+    "topic": request.topic,
+    "script": script,
+    "scenes": scenes,
+    "prompts": prompts,
+    "images": image_paths
+}
+
 0
-
-
-
 
 
 
