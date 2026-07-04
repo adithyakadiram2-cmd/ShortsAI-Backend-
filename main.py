@@ -35,16 +35,8 @@ async def generate(request: Request):
     scenes = split_script(script)
     prompts = create_image_prompts(scenes)
     image_paths = generate_images(prompts)
-    return {
-    "topic": topic,
-    "script": script,
-    "scenes": scenes,
-    "prompts": prompts,
-    "images": image_paths
-}
+    return script
 0
-
-
 
 
 
