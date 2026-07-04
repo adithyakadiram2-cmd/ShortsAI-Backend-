@@ -35,8 +35,9 @@ async def generate(request: Request):
     scenes = split_script(script)
     prompts = create_image_prompts(scenes)
     image_paths = generate_images(prompts)
-    return script.replace("\\n", "\n").replace('\\"', '"')
+    return repr(script)
 0
+
 
 
 
