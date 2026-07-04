@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from services.scenes.splitter import split_into_scenes
 from services.prompts.generator import generate_prompts
-from services.image_generator import generate_images
+from services.images.generator import generate_scene_images
 app = FastAPI(title="ShortsAI Backend V2")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -34,9 +34,12 @@ async def generate(request: Request):
 
     scenes = split_into_scenes(script)
     prompts = generate_prompts(scenes)
-    image_paths = generate_images(prompts)
+    image_paths = generate_scene_images(prompts)
     return repr(script)
 0
+
+
+
 
 
 
